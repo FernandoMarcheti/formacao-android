@@ -16,8 +16,9 @@ public final class TaskContract {
     public static final String NAME = "name";
     public static final String DESCRIPTION = "description";
     public static final String LABEL_ID = "label";
+    public static final String WEB_ID = "idWeb";
 
-    public static final String[] COLUMNS = {ID, NAME, DESCRIPTION, LABEL_ID};
+    public static final String[] COLUMNS = {ID, NAME, DESCRIPTION, LABEL_ID, WEB_ID};
 
     private TaskContract() {
         super();
@@ -31,7 +32,8 @@ public final class TaskContract {
         create.append(ID + " INTEGER PRIMARY KEY, " );
         create.append(NAME + " TEXT NOT NULL, " );
         create.append(DESCRIPTION + " TEXT, " );
-        create.append(LABEL_ID + " INT ");
+        create.append(LABEL_ID + " INTEGER, ");
+        create.append(WEB_ID + " INTEGER UNIQUE");
         create.append(" ); ");
 
         return create.toString();
@@ -42,7 +44,11 @@ public final class TaskContract {
         values.put(TaskContract.ID, task.getId());
         values.put(TaskContract.NAME, task.getName());
         values.put(TaskContract.DESCRIPTION, task.getDescription());
-        values.put(TaskContract.LABEL_ID, task.getLabel().getId());
+
+        if(task.getLabel() != null)
+            values.put(TaskContract.LABEL_ID, task.getLabel().getId());
+
+        values.put(TaskContract.WEB_ID, task.getWebId());
         return values;
     }
 
@@ -55,6 +61,8 @@ public final class TaskContract {
 
             Label label = LabelRepository.getById(cursor.getLong(cursor.getColumnIndex(TaskContract.LABEL_ID)));
             task.setLabel(label);
+
+            task.setWebId(cursor.getLong(cursor.getColumnIndex(TaskContract.WEB_ID)));
             
             return task;
         }

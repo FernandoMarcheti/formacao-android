@@ -30,5 +30,13 @@
     <string name="ok">Ok</string>
     <string name="lbl_password_confirm">Confirm Password</string>
     <string name="lbl_register">Register</string>
+    <string name="editZipCode">Zip Code</string>
+    <string name="type">Type</string>
+    <string name="street">Street</string>
+    <string name="neighborhood">Neighborhood</string>
+    <string name="city">City</string>
+    <string name="state">State</string>
+    <string name="msg_password_doesnt_match">Passord Doesnt Match</string>
+    <string name="lbl_refrash">Refrash</string>
 
 </resources>

@@ -24,6 +24,42 @@
         android:hint="@string/lbl_password_confirm"
         android:password="true" />
 
+    <EditText
+        android:id="@+id/editTextZipCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/editZipCode" />
+
+    <EditText
+        android:id="@+id/editTextType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/type" />
+
+    <EditText
+        android:id="@+id/editTextStreet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/street" />
+
+    <EditText
+        android:id="@+id/editTextNeighborhood"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/neighborhood" />
+
+    <EditText
+        android:id="@+id/editTextCity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/city" />
+
+    <EditText
+        android:id="@+id/editTextState"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/state" />
+
     <Button
         android:id="@+id/buttonUserRegister"
         android:layout_width="match_parent"

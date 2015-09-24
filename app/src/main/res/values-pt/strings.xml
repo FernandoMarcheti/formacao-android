@@ -29,7 +29,15 @@
     <string name="validate_error">Usuário inválido</string>
     <string name="message">Erro de validação</string>
     <string name="ok">Ok</string>
-    <string name="lbl_password_confirm">Confirm Password</string>
-    <string name="lbl_register">Register</string>
+    <string name="lbl_password_confirm">Confirmar senha</string>
+    <string name="lbl_register">Registrar</string>
+    <string name="editZipCode">CEP</string>
+    <string name="type">Tipo</string>
+    <string name="street">Rua</string>
+    <string name="neighborhood">Bairro</string>
+    <string name="city">Cidade</string>
+    <string name="state">Estado</string>
+    <string name="msg_password_doesnt_match">Senhas não conferem</string>
+    <string name="lbl_refrash">Atualizar</string>
 
 </resources>

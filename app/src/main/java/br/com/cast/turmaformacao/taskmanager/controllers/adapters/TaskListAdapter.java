@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.cast.turmaformacao.taskmanager.R;
@@ -16,9 +17,9 @@ public class TaskListAdapter extends BaseAdapter {
     private List<Task> taskList;
     private Activity context;
 
-    public TaskListAdapter(Activity context, List<Task> taskList) {
+    public TaskListAdapter(Activity context) {
         this.context = context;
-        this.taskList = taskList;
+        this.taskList = new ArrayList<>();
     }
 
     public void setDataValues(List<Task> values) {
@@ -46,10 +47,11 @@ public class TaskListAdapter extends BaseAdapter {
         Task task = getItem(position);
         View taskListItemView = context.getLayoutInflater().inflate(R.layout.list_item_task, parent, false);
 
-        int hexColor = android.graphics.Color.parseColor(task.getLabel().getColor().getHex());
-        View textViewId =  taskListItemView.findViewById(R.id.textViewId);
-        textViewId.setBackgroundColor(hexColor);
-
+        if(task.getLabel() != null) {
+            int hexColor = android.graphics.Color.parseColor(task.getLabel().getColor().getHex());
+            View textViewId = taskListItemView.findViewById(R.id.textViewId);
+            textViewId.setBackgroundColor(hexColor);
+        }
         TextView textViewName = (TextView) taskListItemView.findViewById(R.id.textViewName);
         textViewName.setText(task.getName());
         return taskListItemView;

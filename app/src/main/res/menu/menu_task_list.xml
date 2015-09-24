@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/menu_refrash"
+        android:icon="@mipmap/ic_launcher"
+        android:title="@string/lbl_refrash"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/menu_add"
         android:icon="@mipmap/ic_action_add"
         android:title="@string/lbl_add"

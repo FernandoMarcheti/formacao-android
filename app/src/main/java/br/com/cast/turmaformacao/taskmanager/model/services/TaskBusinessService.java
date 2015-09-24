@@ -22,6 +22,12 @@ public final class TaskBusinessService {
         TaskRepository.save(task);
     }
 
+    public static void saveWebTask(List<Task> tasks){
+        List<Task> tasksInternas = TaskRepository.getAll();
+        tasksInternas.removeAll(tasks);
+        TaskRepository.saveWebTask(tasks);
+    }
+
     public static void delete(Task selectedTask) {
         TaskRepository.delete(selectedTask.getId());
     }

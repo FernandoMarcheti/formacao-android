@@ -31,6 +31,26 @@ public final class TaskRepository {
         databaseHelper.close();
     }
 
+    public static void saveWebTask(List<Task> tasks) {
+        DatabaseHelper databaseHelper = DatabaseHelper.getInstance();
+        SQLiteDatabase db = databaseHelper.getWritableDatabase();
+
+        ContentValues values;
+        for (Task task : tasks){
+            values = TaskContract.getContentValues(task);
+            if (task.getId() == null) {
+                db.insert(TaskContract.TABLE, null, values);
+            } else {
+                String where = TaskContract.ID + " = ? ";
+                String[] params = {task.getId().toString()};
+                db.update(TaskContract.TABLE, values, where, params);
+            }
+        }
+
+        db.close();
+        databaseHelper.close();
+    }
+
     public static void delete(long id) {
         DatabaseHelper databaseHelper = DatabaseHelper.getInstance();
         SQLiteDatabase db = databaseHelper.getWritableDatabase();

@@ -3,6 +3,7 @@ package br.com.cast.turmaformacao.taskmanager.controllers.activities;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
@@ -21,6 +22,8 @@ import java.util.List;
 
 import br.com.cast.turmaformacao.taskmanager.R;
 import br.com.cast.turmaformacao.taskmanager.controllers.adapters.TaskListAdapter;
+import br.com.cast.turmaformacao.taskmanager.model.Http.TaskService;
+import br.com.cast.turmaformacao.taskmanager.model.entities.Label;
 import br.com.cast.turmaformacao.taskmanager.model.entities.Task;
 import br.com.cast.turmaformacao.taskmanager.model.services.TaskBusinessService;
 
@@ -57,9 +60,12 @@ public class TaskListActivity extends AppCompatActivity {
     }
 
     private void updateTaskList() {
-        List<Task> values = TaskBusinessService.findAll();
-        listViewTaskList.setAdapter(new TaskListAdapter(this, values));
         TaskListAdapter adapter = (TaskListAdapter) listViewTaskList.getAdapter();
+        if(adapter == null){
+            adapter = new TaskListAdapter(this);
+            listViewTaskList.setAdapter(adapter);
+        }
+        adapter.setDataValues(TaskBusinessService.findAll());
         adapter.notifyDataSetChanged();
     }
 
@@ -76,10 +82,14 @@ public class TaskListActivity extends AppCompatActivity {
             case R.id.menu_add:
                 onMenuAddClick();
                 break;
+            case R.id.menu_refrash:
+                onMenuRefrashClick();
+                break;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
@@ -129,5 +139,31 @@ public class TaskListActivity extends AppCompatActivity {
     private void onMenuAddClick() {
         Intent goToTaskFormActivity = new Intent(TaskListActivity.this, TaskFormActivity.class);
         startActivity(goToTaskFormActivity);
+    }
+
+
+    private void onMenuRefrashClick() {
+        new GetTask().execute();
+    }
+
+    private class GetTask extends AsyncTask<Void, Void, List<Task>> {
+
+        @Override
+        protected void onPreExecute() {
+
+        }
+
+        @Override
+        protected void onPostExecute(List<Task> tasks) {
+            if(tasks.size() > 0) {
+                TaskBusinessService.saveWebTask(tasks);
+            }
+            updateTaskList();
+        }
+
+        @Override
+        protected List<Task> doInBackground(Void... params) {
+            return TaskService.getTasks();
+        }
     }
 }
